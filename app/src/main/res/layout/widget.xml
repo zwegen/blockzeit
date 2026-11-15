@@ -1,0 +1,110 @@
+<!-- Fixed dial geometry deliberately scales text with the circle, not font scale. -->
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" tools:ignore="SpUsage"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:background="@android:color/transparent" android:padding="0dp">
+    <!-- The outer frame centers this square inside any rectangular host allocation. -->
+    <RelativeLayout tools:ignore="UselessParent" android:id="@+id/bb_widget_dial" android:layout_width="280dp" android:layout_height="280dp" android:layout_gravity="center">
+        <ImageView android:id="@+id/bb_widget_ring" android:layout_width="match_parent" android:layout_height="match_parent" android:scaleType="fitCenter" android:src="@drawable/widget_dial_background" android:contentDescription="@string/widget_description" />
+        <!-- Transparent left half of the SAME background hit area. The original ring
+             remains the forward receiver on the right; all data targets stay above both. -->
+        <ImageView android:id="@+id/bb_widget_previous" android:layout_width="140dp" android:layout_height="match_parent"
+            android:layout_alignParentLeft="true" tools:ignore="RtlHardcoded"
+            android:contentDescription="@string/widget_description" />
+        <!-- Shared optional title: existing weather location, price, year or Blocktime.
+             Runtime placement follows the primary row's measured geometry; no lower duplicate. -->
+        <TextView android:id="@+id/bb_widget_weather_place" android:layout_width="179.2dp" android:layout_height="16.8dp"
+            android:layout_centerHorizontal="true"
+            android:gravity="center" android:includeFontPadding="false" android:fallbackLineSpacing="false"
+            android:fontFamily="sans-serif-condensed" android:textStyle="normal" android:textSize="11.2dp" android:textColor="#999999"
+            android:textDirection="locale" android:singleLine="true" android:ellipsize="end" android:visibility="gone" />
+        <!-- Center the live numeric clock alone. Native remeasurement follows every digit-width change. -->
+        <RelativeLayout android:id="@+id/bb_widget_clock_row" android:layout_width="match_parent" android:layout_height="56dp" android:layout_marginTop="103.8dp">
+            <TextClock android:id="@+id/bb_widget_clock" android:layout_width="wrap_content" android:layout_height="match_parent" android:layout_centerHorizontal="true"
+                android:gravity="center" android:includeFontPadding="false" android:fallbackLineSpacing="false" android:fontFamily="sans-serif-condensed" android:textStyle="bold" android:textSize="54dp" android:textColor="#FFFFFF"
+                android:format12Hour="h:mm" android:format24Hour="HH:mm" android:singleLine="true" />
+            <!-- Physical RIGHT_OF is intentional also in RTL. Empty non-null 24h format has zero text/width/gap. -->
+            <TextClock android:id="@+id/bb_widget_period" tools:targetApi="31" tools:ignore="RtlHardcoded" android:minWidth="0dp" android:padding="0dp" android:background="@null" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_toRightOf="@id/bb_widget_clock" android:layout_alignBaseline="@id/bb_widget_clock"
+                android:gravity="left" android:textDirection="ltr" android:includeFontPadding="false" android:fallbackLineSpacing="false" android:fontFamily="sans-serif-condensed" android:textStyle="bold" android:textSize="15dp" android:textColor="#FFFFFF"
+                android:format12Hour=" a" android:format24Hour="" android:singleLine="true" />
+        </RelativeLayout>
+        <TextView android:id="@+id/bb_widget_height" android:layout_width="match_parent" android:layout_height="56dp" android:layout_marginTop="103.8dp"
+            android:gravity="center" android:includeFontPadding="false" android:fallbackLineSpacing="false" android:fontFamily="sans-serif-condensed" android:textStyle="bold" android:textSize="54dp" android:textColor="#FFFFFF"
+            android:singleLine="true" android:visibility="gone" android:text="@string/unknown_value" />
+        <!-- Price digits keep the existing primary geometry; the small regular suffix shares
+             their baseline and uses exactly the same .053d font size as the fee line. -->
+        <RelativeLayout android:id="@+id/bb_widget_price_row" android:layout_width="match_parent" android:layout_height="56dp" android:layout_marginTop="103.8dp" android:visibility="gone">
+            <TextView android:id="@+id/bb_widget_price" android:layout_width="wrap_content" android:layout_height="match_parent" android:layout_centerHorizontal="true"
+                android:gravity="center" android:includeFontPadding="false" android:fallbackLineSpacing="false" android:fontFamily="sans-serif-condensed" android:textStyle="bold" android:textSize="54dp" android:textColor="#FFFFFF"
+                android:textDirection="ltr" android:singleLine="true" android:text="@string/unknown_value" />
+            <TextView android:id="@+id/bb_widget_currency" tools:ignore="RtlHardcoded" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_toRightOf="@id/bb_widget_price" android:layout_alignBaseline="@id/bb_widget_price"
+                android:gravity="left" android:includeFontPadding="false" android:fallbackLineSpacing="false" android:fontFamily="sans-serif-condensed" android:textStyle="normal" android:textSize="15dp" android:textColor="#FFFFFF"
+                android:textDirection="ltr" android:singleLine="true" />
+        </RelativeLayout>
+        <!-- Only the fourth mode adds an original Canvas temperature/weather row. -->
+        <ImageView android:id="@+id/bb_widget_weather" android:layout_width="179.2dp" android:layout_height="56dp"
+            android:layout_marginTop="103.8dp" android:layout_centerHorizontal="true" android:scaleType="fitCenter" android:contentDescription="@string/weather_place" android:visibility="gone" />
+        <!-- Fixed base-font line metrics match Paint; fallback glyphs remain enabled. -->
+        <!-- Runtime footer position uses Android glyph bounds; this XML margin is only a safe initial fallback. -->
+        <!-- Wrap the live date and optional alarm as one centered footer. A weighted
+             wrap-content date shrinks only on overflow; end ellipsizing prevents
+             long localized dates from clipping or overlapping the suffix. Block mode uses
+             a separate weighted pool label, so overflow truncates the pool BEFORE the
+             unweighted rate suffix; both remain on this same single-line footer. -->
+        <LinearLayout android:id="@+id/bb_widget_footer" android:layout_width="wrap_content" android:layout_height="22.4dp" android:layout_marginTop="153.8dp"
+            android:layout_centerHorizontal="true" android:orientation="horizontal" android:gravity="center">
+            <!-- Weighted wrap_content keeps the date natural-width, shrinking only when the footer is constrained. -->
+            <TextClock android:id="@+id/bb_widget_date" android:layout_width="wrap_content" android:layout_height="match_parent" android:layout_weight="1" tools:ignore="InefficientWeight"
+                android:gravity="center" android:includeFontPadding="false" android:fallbackLineSpacing="false" android:fontFamily="sans-serif-condensed" android:textSize="15dp" android:textColor="#FF9800"
+                android:format12Hour="EEE, d. MMM" android:format24Hour="EEE, d. MMM" android:singleLine="true" android:ellipsize="end" />
+            <!-- Only date OR pool is visible: either label yields space to the unweighted suffix. -->
+            <TextView android:id="@+id/bb_widget_pool" android:layout_width="wrap_content" android:layout_height="match_parent" android:layout_weight="1" tools:ignore="InefficientWeight"
+                android:gravity="center" android:includeFontPadding="false" android:fallbackLineSpacing="false" android:fontFamily="sans-serif-condensed" android:textSize="15dp" android:textColor="#FF9800"
+                android:singleLine="true" android:ellipsize="end" android:visibility="gone" />
+            <TextView android:id="@+id/bb_widget_alarm" android:layout_width="wrap_content" android:layout_height="match_parent"
+                android:gravity="center" android:includeFontPadding="false" android:fallbackLineSpacing="false" android:fontFamily="sans-serif-condensed" android:textSize="15dp" android:textColor="@color/bb_widget_alarm_text"
+                android:singleLine="true" android:ellipsize="end" />
+            <TextView android:id="@+id/bb_widget_fees" android:layout_width="wrap_content" android:layout_height="match_parent"
+                android:gravity="center" android:includeFontPadding="false" android:fallbackLineSpacing="false" android:fontFamily="sans-serif-condensed" android:textStyle="normal" android:textSize="15dp" android:textColor="@color/bb_widget_alarm_text"
+                android:textDirection="ltr" android:singleLine="true" android:visibility="gone" />
+            <!-- Compact third line: extrema plus one static metric; wind through 42%, rain strictly above 42%. -->
+            <LinearLayout android:id="@+id/bb_widget_weather_row" android:layout_width="wrap_content" android:layout_height="match_parent"
+                android:orientation="horizontal" android:gravity="center" android:visibility="gone">
+                <TextView android:id="@+id/bb_widget_weather_range" android:layout_width="wrap_content" android:layout_height="match_parent"
+                    android:gravity="center" android:includeFontPadding="false" android:fallbackLineSpacing="false" android:fontFamily="sans-serif-condensed"
+                    android:textSize="15dp" android:textColor="@color/bb_widget_alarm_text" android:textDirection="ltr" android:singleLine="true" />
+                <FrameLayout android:id="@+id/bb_widget_weather_metrics"
+                    android:layout_width="wrap_content" android:layout_height="match_parent" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- Transparent touch-only mask around the centered 55% square.
+             No drawable/background: all text and ring geometry remains unchanged.
+             Physical left/right is intentional in RTL; runtime uses exact pixel margins. -->
+        <ImageView android:id="@+id/bb_widget_touch_left" android:layout_width="0dp" android:layout_height="0dp"
+            android:layout_alignParentLeft="true" tools:ignore="RtlHardcoded"
+            android:focusable="false" android:importantForAccessibility="no" android:contentDescription="@null" />
+        <ImageView android:id="@+id/bb_widget_touch_right" android:layout_width="0dp" android:layout_height="0dp"
+            android:layout_alignParentLeft="true" tools:ignore="RtlHardcoded"
+            android:focusable="false" android:importantForAccessibility="no" android:contentDescription="@null" />
+        <ImageView android:id="@+id/bb_widget_touch_top_left" android:layout_width="0dp" android:layout_height="0dp"
+            android:layout_alignParentLeft="true" tools:ignore="RtlHardcoded"
+            android:focusable="false" android:importantForAccessibility="no" android:contentDescription="@null" />
+        <ImageView android:id="@+id/bb_widget_touch_top_right" android:layout_width="0dp" android:layout_height="0dp"
+            android:layout_alignParentLeft="true" tools:ignore="RtlHardcoded"
+            android:focusable="false" android:importantForAccessibility="no" android:contentDescription="@null" />
+        <ImageView android:id="@+id/bb_widget_touch_bottom_left" android:layout_width="0dp" android:layout_height="0dp"
+            android:layout_alignParentLeft="true" tools:ignore="RtlHardcoded"
+            android:focusable="false" android:importantForAccessibility="no" android:contentDescription="@null" />
+        <ImageView android:id="@+id/bb_widget_touch_bottom_right" android:layout_width="0dp" android:layout_height="0dp"
+            android:layout_alignParentLeft="true" tools:ignore="RtlHardcoded"
+            android:focusable="false" android:importantForAccessibility="no" android:contentDescription="@null" />
+
+        <!-- Visual ring above the data; deliberately not a touch/accessibility target. -->
+        <ImageView android:id="@+id/bb_widget_ring_foreground"
+            android:layout_width="match_parent" android:layout_height="match_parent"
+            android:scaleType="fitCenter" android:clickable="false" android:focusable="false"
+            android:importantForAccessibility="no" />
+
+    </RelativeLayout>
+</FrameLayout>

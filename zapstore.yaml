@@ -1,0 +1,16 @@
+repository: https://github.com/zwegen/blockzeit
+name: Blockzeit
+summary: >-
+  A customizable Android home screen widget with a clock, Bitcoin block height and price, weather forecasts,
+  and calendar events.
+license: GPL-3.0-only
+icon: https://raw.githubusercontent.com/zwegen/blockzeit/main/assets/app-icon.png
+images:
+  - https://raw.githubusercontent.com/zwegen/blockzeit/main/assets/clock_mode.png
+  - https://raw.githubusercontent.com/zwegen/blockzeit/main/assets/block_mode.png
+  - https://raw.githubusercontent.com/zwegen/blockzeit/main/assets/price_mode.png
+  - https://raw.githubusercontent.com/zwegen/blockzeit/main/assets/weather_mode.png
+  - https://raw.githubusercontent.com/zwegen/blockzeit/main/assets/calendar_mode.png
+metadata_sources:
+  - github
+pubkey: npub18xg25ns8m8hhsjtgnsxzpty2ftepu857xsafsqy5nm0jftpvzkyqgv4c2c

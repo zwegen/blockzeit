@@ -1,0 +1,22 @@
+plugins { id 'com.android.application' }
+android {
+    namespace 'de.blockzeit'
+    compileSdk 34
+    buildToolsVersion '34.0.0'
+    defaultConfig {
+        applicationId 'de.blockzeit'
+        minSdk 31
+        targetSdk 34
+        // APK names use 0.NNN; reserve the source version until its first requested APK.
+        // Subsequent APKs advance versionCode by 1 and versionName by 0.001.
+        versionCode 476
+        versionName '0.476'
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+    buildFeatures { buildConfig false }
+    lint { abortOnError true }
+}
+// Intentionally no runtime or test dependencies.

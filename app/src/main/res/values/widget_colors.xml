@@ -1,0 +1,4 @@
+<resources>
+    <!-- Existing alarm color; preserve its original opaque ARGB value. -->
+    <color name="bb_widget_alarm_text">#E6E8EB</color>
+</resources>

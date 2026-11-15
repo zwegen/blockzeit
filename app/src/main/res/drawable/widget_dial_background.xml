@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="1000dp" android:height="1000dp"
+    android:viewportWidth="1000" android:viewportHeight="1000">
+    <!-- Same center, radius and RGB as the original RingRenderer background. -->
+    <path android:fillColor="#1c1f24"
+        android:pathData="M500,4 A496,496 0,1 0,500,996 A496,496 0,1 0,500,4 Z" />
+</vector>

@@ -1,0 +1,42 @@
+<resources>
+    <style name="AppTheme" parent="android:style/Theme.Material.NoActionBar">
+        <item name="android:fontFamily">sans</item>
+        <item name="android:colorAccent">#FF9800</item>
+        <item name="android:windowLightStatusBar">false</item>
+        <item name="android:windowBackground">#171A1F</item>
+        <item name="android:navigationBarColor">#171A1F</item>
+        <item name="android:statusBarColor">#171A1F</item>
+    </style>
+    <style name="CalendarWindowTheme" parent="android:style/Theme.Material.Dialog.NoActionBar">
+        <item name="android:fontFamily">sans</item>
+        <item name="android:colorAccent">#FF9800</item>
+        <item name="android:colorBackground">#282C34</item>
+        <item name="android:textColorPrimary">#E1E3E6</item>
+        <item name="android:textColorSecondary">#E1E3E6</item>
+        <item name="android:textColorHint">#B3E1E3E6</item>
+        <item name="android:colorControlNormal">#E1E3E6</item>
+        <item name="android:popupMenuStyle">@style/CalendarPopupMenu</item>
+        <item name="android:datePickerStyle">@style/CalendarDatePicker</item>
+        <item name="android:timePickerStyle">@style/CalendarTimePicker</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:backgroundDimAmount">0.58</item>
+        <item name="android:backgroundDimEnabled">true</item>
+        <item name="android:windowCloseOnTouchOutside">false</item>
+        <item name="android:windowSoftInputMode">adjustResize|stateAlwaysHidden</item>
+        <item name="android:windowMinWidthMajor">88%</item>
+        <item name="android:windowMinWidthMinor">88%</item>
+    </style>
+    <style name="CalendarPopupMenu" parent="android:style/Widget.Material.PopupMenu">
+        <item name="android:popupBackground">@drawable/calendar_window_surface</item>
+    </style>
+    <style name="CalendarDatePicker" parent="android:style/Widget.Material.DatePicker">
+        <item name="android:headerBackground">#282C34</item>
+    </style>
+    <style name="CalendarTimePicker" parent="android:style/Widget.Material.TimePicker">
+        <item name="android:headerBackground">#282C34</item>
+        <item name="android:numbersBackgroundColor">#282C34</item>
+        <item name="android:numbersTextColor">@color/calendar_picker_numbers</item>
+        <item name="android:numbersInnerTextColor">@color/calendar_picker_numbers</item>
+        <item name="android:numbersSelectorColor">#FF9800</item>
+    </style>
+</resources>
